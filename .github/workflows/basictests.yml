@@ -1,0 +1,22 @@
+name: DevOps Lab 9 CI
+
+on:
+  push:
+    branches: [ main, test ]
+
+jobs:
+  devopsLab9-basic-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Run Validation Tests
+        run: |
+          chmod +x validate-data.sh
+          echo "Test 1 (Valid):"
+          ./validate-data.sh Alice 1234567890
+          echo "Test 2 (Name too long):"
+          ./validate-data.sh AlexanderTheGreat 1234567890
+          echo "Test 3 (Mobile too long):"
+          ./validate-data.sh Bob 123456789012
